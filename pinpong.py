@@ -34,33 +34,35 @@ class Game_Sprite(sprite.Sprite):
 class Player(Game_Sprite):
     def update(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_s] and self.rect.y < 450:
+        if keys_pressed[K_s] and self.rect.y < 500:
             self.rect.y += self.speed
-        if keys_pressed[K_w] and self.rect.y > -50:
+        if keys_pressed[K_w] and self.rect.y > 0:
             self.rect.y -= self.speed
     def update1(self):
         keys_pressed = key.get_pressed()
-        if keys_pressed[K_DOWN] and self.rect.y < 450:
+        if keys_pressed[K_DOWN] and self.rect.y < 500:
             self.rect.y += self.speed
-        if keys_pressed[K_UP] and self.rect.y > -50:
+        if keys_pressed[K_UP] and self.rect.y > 0:
             self.rect.y -= self.speed
 
 class Sharic(Game_Sprite):
     def update(self):
         self.rect.y += self.speed_y
         self.rect.x += self.speed_x
-        if self.rect.y >= 625:
-            self.speed_y = -self.speed_y
-        if self.rect.y <= 100:
-            self.speed_y = -self.speed_y
-        if   
-        
+        if self.rect.y > 615:
+            self.speed_y *= -1
+        if self.rect.y < 0:
+            self.speed_y *= -1
+        if sprite.collide_rect(Sharic,Player1) == True:
+            self.speed_x = abs(self.speed_x)
+        if sprite.collide_rect(Sharic,Player2) == True:
+            self.speed_x = abs(self.speed_x)
+            self.speed_x *= -1
 
 
-
-Sharic = Sharic(300,300,'sharic.png',1,100,100)
-Player1 = Player(-85,300,'red_palka.png',10,300,300)
-Player2 = Player(600,300,'blue_palka.png',10,300,300)
+Sharic = Sharic(300,300,'sharic.png',5,100,100)
+Player1 = Player(25,300,'red_palka.png',10,50,200)
+Player2 = Player(725,300,'blue_palka.png',10,50,200)
 while game:
     clock.tick(FPS)
     for e in event.get():
